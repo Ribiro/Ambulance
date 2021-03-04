@@ -1,0 +1,170 @@
+{% extends 'suggested_ambulances.html' %}
+{% block content %}
+    <!-- Banners -->
+<section id="banner" class="banner-section">
+  <div class="container">
+    <div class="div_zindex">
+      <div class="row">
+        <div class="col-md-5 col-md-push-7">
+          <div class="banner_content">
+            <h1>Find the nearest service.</h1>
+
+                    </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Banners -->
+
+
+<!-- Resent Cat-->
+<section class="section-padding gray-bg">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Find the Nearest <span>AmbulanceForYou</span></h2>
+        {#    flash message#}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <div class="alert alert-danger">
+                <li>{{ message }}</li>
+              </div>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </div>
+      <div>
+          <form action="search_ambulances" method="post">
+            <div class="form-group">
+              <label class="control-label">Full Name <span>*</span></label>
+              <input type="text" name="fullname" class="form-control white_bg" id="fullname" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Email Address <span>*</span></label>
+              <input type="email" name="email" class="form-control white_bg" id="emailaddress" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Phone Number <span>*</span></label>
+              <input type="text" name="contactno" class="form-control white_bg" id="phonenumber" required>
+            </div>
+              <div class="form-group">
+              <label class="control-label"> Constituency <span>*</span></label>
+              <input type="text" name="constituency" class="form-control white_bg" id="phonenumber" required>
+            </div>
+            <div class="form-group">
+              <button class="btn" type="submit" name="send" type="submit">Search <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+            </div>
+          </form>
+      </div>
+    <div class="row">
+
+      <!-- Nav tabs -->
+      <div class="recent-tab">
+      </div>
+      <!-- Recently Listed Cars -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="resentnewcar">
+
+<div class="col-list-3">
+
+
+
+<div class="inventory_info_m">
+</div>
+</div>
+</div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+<!-- /Resent Cat -->
+
+<!-- Fun Facts-->
+<section class="section-padding fun-facts-section parallex-bg">
+
+  <div class="container div_zindex">
+    <div class="row">
+      <div class="col-lg-3 col-xs-6 col-sm-3">
+        <div class="fun-facts-m">
+          <div class="cell">
+            <h2><i class="fa fa-calendar" aria-hidden="true"></i>24 x 7</h2>
+            <p>service</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-xs-6 col-sm-3">
+        <div class="fun-facts-m">
+          <div class="cell">
+            <h2><i class="fa fa-car" aria-hidden="true"></i>We are</h2>
+            <p>Hiring Drivers</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-xs-6 col-sm-3">
+        <div class="fun-facts-m">
+          <div class="cell">
+            <h2><i class="fa fa-car" aria-hidden="true"></i>Leave </h2>
+            <p>Feedbacks</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-xs-6 col-sm-3">
+        <div class="fun-facts-m">
+          <div class="cell">
+            <h2><i class="fa fa-user-circle-o" aria-hidden="true"></i>100+</h2>
+            <p>Satisfied Customers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Dark Overlay-->
+  <div class="dark-overlay"></div>
+</section>
+<!-- /Fun Facts-->
+
+
+<!--Testimonial -->
+<section class="section-padding testimonial-section parallex-bg">
+  <div class="container div_zindex">
+    <div class="section-header white-text text-center">
+      <h2>Our Satisfied <span>Customers</span></h2>
+    </div>
+    <div class="row">
+      <div id="testimonial-slider">
+
+
+        <div class="testimonial-m">
+
+          <div class="testimonial-content">
+            <div class="testimonial-heading">
+              <h5>full name</h5>
+            <p>testimonial</p>
+          </div>
+        </div>
+        </div>
+          <div class="testimonial-m">
+
+          <div class="testimonial-content">
+            <div class="testimonial-heading">
+              <h5>John Doe</h5>
+            <p>The services are awesome!</p>
+          </div>
+        </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+  <!-- Dark Overlay-->
+  <div class="dark-overlay"></div>
+</section>
+<!-- /Testimonial-->
+{% endblock %}

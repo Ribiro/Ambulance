@@ -1,0 +1,184 @@
+{% extends 'layout.html' %}
+{% block content %}
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/branches/{{ this_branch.company_id }}">{{ this_branch.branch_name }} Branch</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/ambulances/{{ this_branch.id }}">Ambulances Information</a>
+            </li>
+            <li class="breadcrumb-item active">Overview</li>
+            <li>
+                <div class="container-fluid">
+                    <!-- Button trigger modal -->
+                     <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#newclientModal" style="margin-top: -40px;">
+                        <i class="mdi mdi-file-plus">New Ambulance</i>
+                    </button>
+
+                    <div class="modal fade" id="newclientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Add a new ambulance</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form action="/new_ambulance/{{ this_branch.id }}" method="POST" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label for="ambulance_plates">Ambulance Plates</label>
+                                            <input required name="ambulance_plates" type="text" class="form-control" id="ambulance_plates" placeholder="enter ambulance number plates">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ambulance_type">Ambulance Type/Model</label>
+                                            <input required name="ambulance_type" type="text" class="form-control" id="ambulance_type" placeholder="enter ambulance's model">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="file">Ambulance's Photo</label>
+                                              <input required type="file" name="file" id="file" accept="image/*,video/*,audio/*" capture multiple />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="drivers_name">Driver's Fullname</label>
+                                            <input required name="drivers_name" type="text" class="form-control" id="drivers_name" placeholder="enter name of driver">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input required name="phone" type="number" class="form-control" id="phone" placeholder="enter phone">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input required name="email" type="email" class="form-control" id="email" placeholder="enter email">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="submit" class="form-control btn btn-primary">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ol>
+{#    flash message#}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <div class="alert alert-info">
+                <li>{{ message }}</li>
+              </div>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+{#         <div class="page-content-wrapper">#}
+                            <div class="row">
+                            {% for each in this_branch.ambulances %}
+                                <div class="col-md-6 col-lg-6 col-xl-3">
+
+                                    <!-- Simple card -->
+                                    <div class="card m-b-30">
+                                        <img class="card-img-top img-fluid" src="{{ each.ambulance_image }}" alt="Card image cap">
+                                        <div class="card-body">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                <tr>
+                                                    <th><i></i>{{ each.ambulance_plates }}</th>
+                                                    <th>
+                                                        <div style="display: inline-block">
+                                                            <button class="btn-info" data-toggle="modal" data-target="#modal{{ each.id }}"><i class="mdi mdi-pen"></i></button>
+                                                            <!-- The Modal -->
+                                                            <div class="modal fade" id="modal{{ each.id }}">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Update ambulance info!</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            <form action="/update_ambulance/{{ each.id }}" method="post">
+                                                                                <div class="form-group">
+                                                                                    <label for="drivers_name">Driver's Fullname</label>
+                                                                                    <input value="{{ each.driver_name }}" required name="drivers_name" type="text" class="form-control" id="drivers_name" placeholder="enter name of driver">
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <label for="phone">Phone</label>
+                                                                                    <input value="{{ each.phone }}" required name="phone" type="number" class="form-control" id="phone" placeholder="enter phone">
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <label for="email">Email</label>
+                                                                                    <input value="{{ each.email }}" required name="email" type="email" class="form-control" id="email" placeholder="enter email">
+                                                                                </div>
+
+                                                                                <div class="form-group">
+                                                                                    <input type="submit" class="form-control btn btn-primary">
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <button class="btn-danger" data-toggle="modal" data-target="#modaldelete{{ each.id }}"><i class="mdi mdi-delete-empty"></i></button>
+                                                            <!-- The Modal -->
+                                                            <div class="modal fade" id="modaldelete{{ each.id }}">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Delete {{ each.ambulance_plates }} ambulance?</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <a href="/delete_ambulance/{{ each.id }}">
+                                                                                <button class="btn-danger">Delete</button>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                            </table>
+                                            <table class="table mb-0">
+                                                <thead>
+                                                <tr>
+                                                    <th><i class="fas fa-phone"></i> {{ each.phone }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="ion-ios7-email"></i> {{ each.email }}</td>
+                                                </tr>
+                                                </thead>
+                                            </table>
+{#                                            <p class="card-text">{{ each.ambulance_type }}</p>#}
+                                            <span class="text-black-50">Driver:</span>
+                                            <span>{{ each.driver_name }}</span>
+{#                                            <a href="#" class="btn btn-primary waves-effect waves-light">Button</a>#}
+                                        </div>
+                                    </div>
+
+                                </div><!-- end col -->
+                            {% endfor %}
+                            </div>
+{#         </div>#}
+{% endblock content %}
